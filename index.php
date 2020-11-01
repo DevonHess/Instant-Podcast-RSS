@@ -5,19 +5,20 @@
 	$files = [];
 	$list = [];
 
-	function grabImage($dir, $file)
+	function grabImage($d, $file)
 	{
+		global $dir;
 		$ext = ["gif", "jpeg", "jpg", "png"];
 		for ($i = 0; $i < count($ext); $i++)
 		{
-			if (file_exists($dir . $file . "." . $ext[$i]))
+			if (file_exists($d . $file . "." . $ext[$i]))
 			{
-				$img = $dir . $file . "." . $ext[$i];
+				$img = $d . $file . "." . $ext[$i];
 				break;
 			}
-			else if (file_exists($dir . "image." . $ext[$i]))
+			else if ($dir !== $d && file_exists($d . "image." . $ext[$i]))
 			{
-				$img = $dir . "image." . $ext[$i];
+				$img = $d . "image." . $ext[$i];
 				break;
 			}
 			else
@@ -77,7 +78,7 @@
 	echo "<title>" . ($dir ? rtrim($dir, "/") : "Devon's Podcast Server") . "</title>";
 	echo "<description>Devon's Podcast Server</description>";
 	echo "<link>" . $path . $dir . "</link>";
-	echo "<itunes:image href=\"" . $path . grabImage($dir, "") . "\"/>";
+	echo "<itunes:image href=\"" . $path . grabImage($dir, "image") . "\"/>";
 	echo "<itunes:block>yes</itunes:block>";
 	
 	recurse($dir);
