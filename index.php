@@ -5,15 +5,29 @@
 	$files = [];
 	$list = [];
 
-	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-	echo "<rss version=\"2.0\" xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\">";
-	echo "<channel>";
-	echo "<title>" . ($dir ? rtrim($dir, "/") : "Devon's Podcast Server") . "</title>";
-	echo "<description>Devon's Podcast Server</description>";
-	echo "<link>" . $path . $dir . "</link>";
-	echo "<itunes:image href=\"" . $path . $dir . "image.png\"/>";
-	echo "<itunes:block>yes</itunes:block>";
-	
+	function grabImage($dir, $file)
+	{
+		$ext = ["gif", "jpeg", "jpg", "png"];
+		for ($i = 0; $i < count($ext); $i++)
+		{
+			if (file_exists($dir . $file . "." . $ext[$i]))
+			{
+				$img = $dir . $file . "." . $ext[$i];
+				break;
+			}
+			else if (file_exists($dir . "image." . $ext[$i]))
+			{
+				$img = $dir . "image." . $ext[$i];
+				break;
+			}
+			else
+			{
+				$img = '';
+			}
+		}
+		return $img;
+	}
+
 	function addEntry($t,$s,$l,$g,$p,$i)
 	{
 		global $path;
@@ -30,7 +44,6 @@
 		echo "</item>";
 	}
 	
-
 	function recurse($d)
 	{
 		global $path, $list;
@@ -58,6 +71,15 @@
 		}
 	}
 
+	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+	echo "<rss version=\"2.0\" xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\">";
+	echo "<channel>";
+	echo "<title>" . ($dir ? rtrim($dir, "/") : "Devon's Podcast Server") . "</title>";
+	echo "<description>Devon's Podcast Server</description>";
+	echo "<link>" . $path . $dir . "</link>";
+	echo "<itunes:image href=\"" . $path . grabImage($dir, "") . "\"/>";
+	echo "<itunes:block>yes</itunes:block>";
+	
 	recurse($dir);
 
 	usort($list, function ($a, $b)
@@ -84,18 +106,7 @@
 		$desc = $list[$i]->dir . $name . '.' . $ext;
 		$url = $path . $list[$i]->dir . $list[$i]->file;
 		$pub = date("r", filectime($list[$i]->dir . $list[$i]->file));
-		if (file_exists($list[$i]->dir . $list[$i]->file . ".png"))
-		{
-			$img = $list[$i]->dir . $list[$i]->file . ".png";
-		}
-		else if (file_exists($list[$i]->dir . "image.png"))
-		{
-			$img = $list[$i]->dir . "image.png";
-		}
-		else
-		{
-			$img = '';
-		}
+		$img = grabImage($list[$i]->dir, $list[$i]->file);
 
 		addEntry
 		(
