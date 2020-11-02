@@ -16,9 +16,16 @@
 				$img = $d . $f . "." . $ext[$i];
 				break;
 			}
-			else if ($dir !== $d && file_exists($d . "image." . $ext[$i]))
+			else if (file_exists($d . "image." . $ext[$i]))
 			{
-				$img = $d . "image." . $ext[$i];
+				if ($dir == $d)
+				{
+					$img = '';
+				}
+				else
+				{
+					$img = $d . "image." . $ext[$i];
+				}
 				break;
 			}
 			else
