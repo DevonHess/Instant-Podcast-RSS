@@ -4,7 +4,7 @@ Turn an apache index into a podcast RSS feed
 Say you have the following file structure on a server:
 
 ````
-example.com/podcast/
+example.com/
 │   image.png
 │
 ├───show-1
@@ -27,9 +27,9 @@ example.com/podcast/
 
 By placing the files in this repo into a single root folder, you create rss feeds for every folder.
 
-`example.com/podcast/` will display a feed for all files in all folders.
+`example.com/` will display a feed for all files in all folders.
 
-`example.com/podcast/show-1/` will display a feed for show-1.
+`example.com/show-1/` will display a feed for show-1.
 
 `image.png` in your linked folder will be the main podcast image.
 
