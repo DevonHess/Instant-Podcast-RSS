@@ -3,25 +3,27 @@ Turn an apache index into a podcast RSS feed
 
 Say you have the following file structure on a server:
 
-    example.com/podcast/
-    │   image.png
-    │
-    ├───show-1
-    │       a.mp3
-    │       b.mp3
-    │       c.mp3
-    │
-    ├───show-2
-    │       a.mp3
-    │       b.mp3
-    │       c.mp3
-    │       image.png
-    │
-    └───show-3
-            a.mp3
-            a.mp3.png
-            b.mp3
-            c.mp3
+````
+example.com/podcast/
+│   image.png
+│
+├───show-1
+│       a.mp3
+│       b.mp3
+│       c.mp3
+│
+├───show-2
+│       a.mp3
+│       b.mp3
+│       c.mp3
+│       image.png
+│
+└───show-3
+        a.mp3
+        a.mp3.png
+        b.mp3
+        c.mp3
+````
 
 By placing the files in this repo into a single root folder, you create rss feeds for every folder.
 
