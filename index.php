@@ -5,15 +5,15 @@
 	$files = [];
 	$list = [];
 
-	function grabImage($d, $file)
+	function grabImage($d, $f)
 	{
 		global $dir;
 		$ext = ["gif", "jpeg", "jpg", "png"];
 		for ($i = 0; $i < count($ext); $i++)
 		{
-			if (file_exists($d . $file . "." . $ext[$i]))
+			if (file_exists($d . $f . "." . $ext[$i]))
 			{
-				$img = $d . $file . "." . $ext[$i];
+				$img = $d . $f . "." . $ext[$i];
 				break;
 			}
 			else if ($dir !== $d && file_exists($d . "image." . $ext[$i]))
@@ -29,7 +29,7 @@
 		return $img;
 	}
 
-	function addEntry($t,$s,$l,$g,$p,$i)
+	function addEntry($t, $s, $l, $g, $p, $i)
 	{
 		global $path;
 		echo "<item>";
